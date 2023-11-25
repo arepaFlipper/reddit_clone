@@ -37,6 +37,10 @@ Run:
 npx shadcn-ui add button
 ```
 
+The file `./src/lib/db.ts` ensures that while we're on local development
+we won't install multiple prisma clients, but instead we use a cached one.
+
+The file `./src/lib/utils.ts` are some definitions that would be annoying to type one by one.
    ```
 
 # Acknowledgements
