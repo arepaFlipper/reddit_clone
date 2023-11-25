@@ -28,6 +28,15 @@ This web application replicates the core functionalities of the popular social p
 3. Install the prisma LSP for **Neovim**:
    ```bash
    :TSInstall prisma
+
+### (0:11:12) Build the Navbar
+visit the UI library `https://ui.shadcn.com/docs/components/button` to use the button component
+
+Run:
+```bash
+npx shadcn-ui add button
+```
+
    ```
 
 # Acknowledgements
