@@ -17,7 +17,6 @@ const UserAuthForm = ({ className, ...props }: IUserAuthForm) => {
     setIsLoading(true);
 
     try {
-      throw new Error()
       await signIn('google')
     } catch (error) {
       // toast notification here
@@ -27,7 +26,7 @@ const UserAuthForm = ({ className, ...props }: IUserAuthForm) => {
         variant: 'destructive',
       })
     } finally {
-      // setIsLoading(false)
+      setIsLoading(false)
     }
   }
   return (
