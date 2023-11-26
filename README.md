@@ -61,6 +61,15 @@ This behaves different from the Joshua example. It should redirect to
 `http://localhost:3000/api/auth/error` because we didn't provide the "toast" 
 to be rendered anywhere on the page.
 
+### (1:18:52) Authentication
+The following helper:
+```tsx
+export const getAuthSession = () => getServerSession(authOptions)
+```
+It is going to be useful across the entire application and we can use this for example in the nav bar
+by turning the Navbar into a server component into an asynchronous server component ,that means, that
+we can now perform awaiting actions at the top level of the navbar, for example fetch the session data.
+
 ```bash
 ❯ npx shadcn-ui init
 ✔ Would you like to use TypeScript (recommended)? … no / yes
