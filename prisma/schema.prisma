@@ -57,8 +57,7 @@ model User {
   Comment     Comment[]
   CommentVote CommentVote[]
   Vote        Vote[]
-
-  Subreddit Subreddit[]
+  Subscription Subscription[]
 }
 
 model Subreddit {
@@ -69,17 +68,22 @@ model Subreddit {
   posts     Post[]
 
   creatorId   String?
-  Creator     User?          @relation("CreatedBy",fields: [creatorId], references: [id])
+  Creator     User?          @relation("CreatedBy", fields: [creatorId], references: [id])
   subscribers Subscription[]
 
   @@index([name])
+  @@index([creatorId])
 }
 
 model Subscription {
-  user        User
+  user        User      @relation(fields: [userId], references: [id])
   userId      String
-  surbreddit  Subreddit
+  surbreddit  Subreddit @relation(fields: [subredditId], references: [id])
   subredditId String
+
+  @@id([userId, subredditId])
+  @@index([userId])
+  @@index([subredditId])
 }
 
 model Post {
@@ -95,7 +99,7 @@ model Post {
   authorId String
 
   comments Comment[]
-  Vote     Vote[]
+  Votes     Vote[]
 
   @@index([subredditId])
   @@index([authorId])
