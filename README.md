@@ -118,9 +118,16 @@ append `{/* @ts-expect-error Server Component */}` to ignore the issue.
 Add the file `src/app/@authModal/(.)sign-in/page.tsx`:
 - `(.)` like a file system 
 - `(.)<route_to_intercept>` Whenever we call the route `/sign-in` we will intercept it in the
-auth model 
+auth modal. 
 - `(.)<route_to_intercept>/<what_to_render>` Whenever the interception is successful we will render
 the component `page.tsx`.
+
+### (1:46:00) Route interceptor
+Instead of actually navigating the user to a page, sometimes, when they're not expecting it,
+so for example, if the user click the Vault button on a comment and they have to Login to do that
+you could just send them to the auth modal, which is not invasive compared to actually navigate the 
+user to the proper page (like `/sign-in`).
+
 
 # Acknowledgements
 Special thanks to Joshua Neske (@joshtriedcoding) for making the original project tutorial.
