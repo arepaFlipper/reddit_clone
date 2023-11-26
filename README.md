@@ -72,6 +72,8 @@ we can now perform awaiting actions at the top level of the navbar, for example 
 
 ### (1:23:07) add dropdown menu
 Run the following command:
+
+
 ```bash
 npx shadcn-ui add 
 ```
@@ -98,6 +100,19 @@ Success! Project initialization completed.
 
 npx shadcn-ui add toast
 ```
+
+### (1:40:44) Routing
+Add the following file into the project:`src/app/@authModal/default.tsx`:
+
+- The `@` is a convention for how we can create these routes intercepting and parallel routes.
+
+- The `default.tsx` determines what should be shown from this component, if no route is able to
+be intercepted, so it is a kind of default state for the routes. In this case is `null` because 
+we don't want to render anything, if we are not intercepting a route. (Q: why not a 404 page?)
+
+### (1:41:00) ignore the typescript warning:
+`TypeScript` does not know how to deal with the `Navbar` asynchronous behavior, so we 
+append `{/* @ts-expect-error Server Component */}` to ignore the issue. 
 
 # Acknowledgements
 Special thanks to Joshua Neske (@joshtriedcoding) for making the original project tutorial.
