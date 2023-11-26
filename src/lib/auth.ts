@@ -1,8 +1,8 @@
-import { NextAuthOptions } from "next-auth"
-import { db } from "./db"
+import { db } from "@/lib/db"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import GoogleProvider from "next-auth/providers/google"
-import { nanoid } from "nanoid"
+import { nanoid } from 'nanoid'
+import { NextAuthOptions, getServerSession } from 'next-auth'
+import GoogleProvider from 'next-auth/providers/google'
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -16,30 +16,33 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    })
+    }),
   ],
-  callbacks: {
+  _callbacks: {
     async session({ token, session }) {
-      if (token && session.user) {
+      if (token) {
         session.user.id = token.id
         session.user.name = token.name
         session.user.email = token.email
-        session.user.image = token.image
+        session.user.image = token.picture
         session.user.username = token.username
       }
+
       return session
     },
+
     async jwt({ token, user }) {
       const dbUser = await db.user.findFirst({
         where: {
           email: token.email,
-        }
+        },
       })
 
       if (!dbUser) {
         token.id = user!.id
         return token
       }
+
       if (!dbUser.username) {
         await db.user.update({
           where: {
@@ -47,9 +50,34 @@ export const authOptions: NextAuthOptions = {
           },
           data: {
             username: nanoid(10),
-          }
+          },
         })
       }
-    }
+
+      return {
+        id: dbUser.id,
+        name: dbUser.name,
+        email: dbUser.email,
+        picture: dbUser.image,
+        username: dbUser.username,
+      }
+    },
+    redirect() {
+      return '/'
+    },
+  },
+  get callbacks_1() {
+    return this._callbacks
+  },
+  set callbacks_1(value) {
+    this._callbacks = value
+  },
+  get callbacks() {
+    return this._callbacks
+  },
+  set callbacks(value) {
+    this._callbacks = value
   },
 }
+
+export const getAuthSession = () => getServerSession(authOptions)
