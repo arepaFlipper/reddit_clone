@@ -29,6 +29,9 @@ This web application replicates the core functionalities of the popular social p
    ```bash
    :TSInstall prisma
 
+## Database Diagram
+![Database Diagram](./DB_model.png)
+
 ### (0:11:12) Build the Navbar
 visit the UI library `https://ui.shadcn.com/docs/components/button` to use the button component
 
@@ -128,6 +131,8 @@ so for example, if the user click the Vault button on a comment and they have to
 you could just send them to the auth modal, which is not invasive compared to actually navigate the 
 user to the proper page (like `/sign-in`).
 
+## Database Diagram
+![Database Diagram](./DB_model.png)
 
-# Acknowledgements
+### Acknowledgements
 Special thanks to Joshua Neske (@joshtriedcoding) for making the original project tutorial.

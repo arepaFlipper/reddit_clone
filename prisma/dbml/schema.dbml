@@ -1,0 +1,156 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Account {
+  id String [pk]
+  userId String [not null]
+  type String [not null]
+  provider String [not null]
+  providerAccountId String [not null]
+  refresh_token String
+  access_token String
+  expires_at Int
+  token_type String
+  scope String
+  id_token String
+  session_state String
+  user User [not null]
+
+  indexes {
+    (provider, providerAccountId) [unique]
+  }
+}
+
+Table Session {
+  id String [pk]
+  sessionToken String [unique, not null]
+  userId String [not null]
+  expires DateTime [not null]
+  user User [not null]
+}
+
+Table User {
+  id String [pk]
+  name String
+  email String [unique]
+  emailVerified DateTime
+  createdSubreddits Subreddit [not null]
+  username String [unique]
+  image String
+  accounts Account [not null]
+  sessions Session [not null]
+  Post Post [not null]
+  Comment Comment [not null]
+  CommentVote CommentVote [not null]
+  Vote Vote [not null]
+  Subscription Subscription [not null]
+}
+
+Table Subreddit {
+  id String [pk]
+  name String [unique, not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  posts Post [not null]
+  creatorId String
+  Creator User
+  subscribers Subscription [not null]
+}
+
+Table Subscription {
+  user User [not null]
+  userId String [not null]
+  surbreddit Subreddit [not null]
+  subredditId String [not null]
+
+  indexes {
+    (userId, subredditId) [pk]
+  }
+}
+
+Table Post {
+  id String [pk]
+  title String [not null]
+  content Json
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  subreddit Subreddit
+  subredditId String [not null]
+  author User [not null]
+  authorId String [not null]
+  comments Comment [not null]
+  Votes Vote [not null]
+}
+
+Table Comment {
+  id String [pk]
+  text String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  author User [not null]
+  authorId String [not null]
+  post Post [not null]
+  postId String [not null]
+  replyToId String
+  replyTo Comment
+  replies Comment [not null]
+  votes CommentVote [not null]
+  commentId String
+}
+
+Table Vote {
+  user User [not null]
+  userId String [not null]
+  post Post [not null]
+  postId String [not null]
+  type VoteType [not null]
+
+  indexes {
+    (userId, postId) [pk]
+  }
+}
+
+Table CommentVote {
+  user User [not null]
+  userId String [not null]
+  comment Comment [not null]
+  commentId String [not null]
+  type VoteType [not null]
+
+  indexes {
+    (userId, commentId) [pk]
+  }
+}
+
+Enum VoteType {
+  UP
+  DOWN
+}
+
+Ref: Account.userId > User.id [delete: Cascade]
+
+Ref: Session.userId > User.id [delete: Cascade]
+
+Ref: Subreddit.creatorId > User.id
+
+Ref: Subscription.userId > User.id
+
+Ref: Subscription.subredditId > Subreddit.id
+
+Ref: Post.subredditId > Subreddit.id
+
+Ref: Post.authorId > User.id
+
+Ref: Comment.authorId > User.id
+
+Ref: Comment.postId > Post.id
+
+Ref: Comment.replyToId - Comment.id [delete: No Action]
+
+Ref: Vote.userId > User.id
+
+Ref: Vote.postId > Post.id
+
+Ref: CommentVote.userId > User.id
+
+Ref: CommentVote.commentId > Comment.id
