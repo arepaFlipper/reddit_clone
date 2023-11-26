@@ -55,6 +55,12 @@ There are definitions in the `./tailwind.config.js` file. The `container` classN
 
 ### (0:51:55) import toast from shadcn-ui
 Run the following command:
+
+### (0:55:09) Press login button
+This behaves different from the Joshua example. It should redirect to
+`http://localhost:3000/api/auth/error` because we didn't provide the "toast" 
+to be rendered anywhere on the page.
+
 ```bash
 ❯ npx shadcn-ui init
 ✔ Would you like to use TypeScript (recommended)? … no / yes
