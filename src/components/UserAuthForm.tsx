@@ -32,7 +32,7 @@ const UserAuthForm = ({ className, ...props }: IUserAuthForm) => {
   return (
     <div className={cn('flex justify-center', className)}>
       <Button onClick={loginWithGoogle} isLoading={isLoading} size='sm' className='w-full'>
-        {(isLoading) ? null : <Icons.google className="mr-2 h-4 w-4" />}
+        {(!isLoading) && <Icons.google className="mr-2 h-4 w-4" />}
         Google
       </Button>
     </div>
