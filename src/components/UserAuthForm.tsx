@@ -1,6 +1,5 @@
 "use client"
-
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "./ui/Button"
 import { cn } from "@/lib/utils"
 import { signIn } from "next-auth/react"
@@ -10,6 +9,7 @@ import { useToast } from "@/hooks/use-toast"
 interface IUserAuthForm extends React.HTMLAttributes<HTMLDivElement> { }
 
 const UserAuthForm = ({ className, ...props }: IUserAuthForm) => {
+  console.log(props);
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { toast } = useToast()
 
