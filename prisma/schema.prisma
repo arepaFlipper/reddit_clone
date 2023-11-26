@@ -55,6 +55,7 @@ model User {
   Post        Post[]
   Comment     Comment[]
   CommentVote CommentVote[]
+  Vote        Vote[]
 }
 
 model Subreddit {
@@ -78,6 +79,7 @@ model Post {
   authorId String
 
   comments Comment[]
+  Vote     Vote[]
 
   @@index([subredditId])
   @@index([authorId])
@@ -87,7 +89,7 @@ model Comment {
   id        String   @id @default(cuid())
   text      String
   createdAt DateTime @default(now())
-  author    User     @relation(fields: [userId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id])
   authorId  String
   post      Post     @relation(fields: [postId], references: [id])
   postId    String
@@ -98,16 +100,27 @@ model Comment {
 
   votes     CommentVote[]
   commentId String?
-  userId    String
 
-  @@index([userId])
   @@index([postId])
   @@index([replyToId])
+  @@index([authorId])
 }
 
 enum VoteType {
   UP
   DOWN
+}
+
+model Vote {
+  user   User     @relation(fields: [userId], references: [id])
+  userId String
+  post   Post     @relation(fields: [postId], references: [id])
+  postId String
+  type   VoteType
+
+  @@id([userId, postId])
+  @@index([userId])
+  @@index([postId])
 }
 
 model CommentVote {
