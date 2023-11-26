@@ -53,5 +53,11 @@ my-2 mx-2 -> m-2
 ### (0:23:00) container className
 There are definitions in the `./tailwind.config.js` file. The `container` className is defined there.
 
+### (0:51:55) import toast from shadcn-ui
+Run the following command:
+```bash
+npx shadcn-ui add toast
+```
+
 # Acknowledgements
 Special thanks to Joshua Neske (@joshtriedcoding) for making the original project tutorial.

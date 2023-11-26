@@ -1,4 +1,6 @@
 import { Icons } from "./Icons"
+import Link from "next/link"
+import UserAuthForm from "./UserAuthForm"
 
 const SignIn = () => {
   return (
@@ -9,6 +11,15 @@ const SignIn = () => {
         <p className="text-sm max-w-xs mx-auto">
           By continuing, you agree to our User Agreement and Privacy Policy
         </p>
+
+        {/* Sign In */}
+        <UserAuthForm />
+
+        <p className="px-8 text-center text-sm text-zinc-700">
+          New to Reddit clone?{' '}
+          <Link href="/sign-up" className="hover:text-zinc-800 text-sm underline underline-offset-4 ">Sign Up</Link>
+        </p>
+
       </div>
     </div >
   )
