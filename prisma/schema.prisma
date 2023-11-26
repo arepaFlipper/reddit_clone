@@ -42,10 +42,11 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
+  id                String      @id @default(cuid())
+  name              String?
+  email             String?     @unique
+  emailVerified     DateTime?
+  createdSubreddits Subreddit[] @relation("CreatedBy")
 
   username String? @unique
 
@@ -56,6 +57,8 @@ model User {
   Comment     Comment[]
   CommentVote CommentVote[]
   Vote        Vote[]
+
+  Subreddit Subreddit[]
 }
 
 model Subreddit {
@@ -64,6 +67,19 @@ model Subreddit {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   posts     Post[]
+
+  creatorId   String?
+  Creator     User?          @relation("CreatedBy",fields: [creatorId], references: [id])
+  subscribers Subscription[]
+
+  @@index([name])
+}
+
+model Subscription {
+  user        User
+  userId      String
+  surbreddit  Subreddit
+  subredditId String
 }
 
 model Post {
