@@ -18,7 +18,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
-  _callbacks: {
+  callbacks: {
     async session({ token, session }) {
       if (token) {
         session.user.id = token.id
@@ -65,18 +65,6 @@ export const authOptions: NextAuthOptions = {
     redirect() {
       return '/'
     },
-  },
-  get callbacks_1() {
-    return this._callbacks
-  },
-  set callbacks_1(value) {
-    this._callbacks = value
-  },
-  get callbacks() {
-    return this._callbacks
-  },
-  set callbacks(value) {
-    this._callbacks = value
   },
 }
 
