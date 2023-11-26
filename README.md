@@ -70,6 +70,13 @@ It is going to be useful across the entire application and we can use this for e
 by turning the Navbar into a server component into an asynchronous server component ,that means, that
 we can now perform awaiting actions at the top level of the navbar, for example fetch the session data.
 
+### (1:23:07) add dropdown menu
+Run the following command:
+```bash
+npx shadcn-ui add 
+```
+Select the `dropdown menu` and hit space or right arrow `→`.
+
 ```bash
 ❯ npx shadcn-ui init
 ✔ Would you like to use TypeScript (recommended)? … no / yes
