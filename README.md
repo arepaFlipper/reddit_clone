@@ -114,5 +114,13 @@ we don't want to render anything, if we are not intercepting a route. (Q: why no
 `TypeScript` does not know how to deal with the `Navbar` asynchronous behavior, so we 
 append `{/* @ts-expect-error Server Component */}` to ignore the issue. 
 
+### (1:42:25) Intercept routes
+Add the file `src/app/@authModal/(.)sign-in/page.tsx`:
+- `(.)` like a file system 
+- `(.)<route_to_intercept>` Whenever we call the route `/sign-in` we will intercept it in the
+auth model 
+- `(.)<route_to_intercept>/<what_to_render>` Whenever the interception is successful we will render
+the component `page.tsx`.
+
 # Acknowledgements
 Special thanks to Joshua Neske (@joshtriedcoding) for making the original project tutorial.
