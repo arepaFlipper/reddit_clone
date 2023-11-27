@@ -1,4 +1,5 @@
 "use client"
+import { Input } from '@/components/ui/Input'
 import { useState } from 'react'
 
 const Page = () => {
@@ -19,6 +20,7 @@ const Page = () => {
           </p>
           <div className="relative">
             <p className="absolute text-sm left-0 w-8 inset-y-0 grid place-items-center text-zinc-400">r/</p>
+            <Input value={input} onChange={(e) => setInput(e.target.value)} className="pl-6" />
           </div>
         </div>
       </div>
