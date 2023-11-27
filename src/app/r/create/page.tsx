@@ -48,11 +48,13 @@ const Page = () => {
       if (err.response?.status === 401) {
         return loginToast()
       }
-    }
+    };
+
+    toast({ title: 'There was an error', description: 'Could not create subredditest', variant: 'destructive' })
   }
 
-  const onSuccess = () => {
-    router.push('/r/create');
+  const onSuccess = (data: string) => {
+    router.push(`/r/${data}`);
   }
 
   const { mutate: createCommunity, isLoading } = useMutation({ mutationFn, onSuccess, onError })
