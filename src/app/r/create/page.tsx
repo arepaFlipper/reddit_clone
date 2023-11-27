@@ -17,11 +17,10 @@ const Page = () => {
 
   const mutationFn = async () => {
     const payload: CreateSubredditPayload = {
-      name: "",
-      age: 25,
+      name: input,
     }
 
-    const { data } = await axios.post('api/subreddit', payload)
+    const { data } = await axios.post('/api/subreddit', payload)
     return data as string
   }
 
