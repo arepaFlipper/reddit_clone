@@ -138,6 +138,12 @@ The folders created into the `src/app/` folder are going to be considered as rou
 The `zod` library is used to validate the data that is going to be sent to the server.
 In this case we are going to validate the data to create the proper community.
 
+
+### (2:59:00) \[slug]
+The square brackets in the folder defines a dynamic route which its value is taken from the URL.
+eg. `http://localhost:3000/r/neovim` for this case and considering that the folder's path is 
+`src/app/r/[slug]/page.tsx`, we can find the string `neovim` into the `params.slug` property.
+
 ![Zod cleaning data](./Zod_explanation.png)
 
 In case we are not passing data according to the schema, the `zod` library will throw an error:
