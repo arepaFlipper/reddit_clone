@@ -144,6 +144,9 @@ The square brackets in the folder defines a dynamic route which its value is tak
 eg. `http://localhost:3000/r/neovim` for this case and considering that the folder's path is 
 `src/app/r/[slug]/page.tsx`, we can find the string `neovim` into the `params.slug` property.
 
+### (3:25:36) Double exclamation mark
+The double exclamation mark is used in JavaScript to turn a value into a boolean.
+
 ![Zod cleaning data](./Zod_explanation.png)
 
 In case we are not passing data according to the schema, the `zod` library will throw an error:
