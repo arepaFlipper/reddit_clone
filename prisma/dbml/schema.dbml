@@ -80,7 +80,7 @@ Table Post {
   author User [not null]
   authorId String [not null]
   comments Comment [not null]
-  Votes Vote [not null]
+  votes Vote [not null]
 }
 
 Table Comment {

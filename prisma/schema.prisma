@@ -6,7 +6,7 @@ generator client {
 }
 
 generator dbml {
-    provider = "prisma-dbml-generator"
+  provider = "prisma-dbml-generator"
 }
 
 datasource db {
@@ -54,13 +54,13 @@ model User {
 
   username String? @unique
 
-  image       String?
-  accounts    Account[]
-  sessions    Session[]
-  Post        Post[]
-  Comment     Comment[]
-  CommentVote CommentVote[]
-  Vote        Vote[]
+  image        String?
+  accounts     Account[]
+  sessions     Session[]
+  Post         Post[]
+  Comment      Comment[]
+  CommentVote  CommentVote[]
+  Vote         Vote[]
   Subscription Subscription[]
 }
 
@@ -103,7 +103,7 @@ model Post {
   authorId String
 
   comments Comment[]
-  Votes     Vote[]
+  votes    Vote[]
 
   @@index([subredditId])
   @@index([authorId])
