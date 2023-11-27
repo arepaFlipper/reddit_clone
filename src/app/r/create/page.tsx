@@ -17,6 +17,7 @@ const Page = () => {
 
   const mutationFn = async () => {
     const payload: CreateSubredditPayload = {
+      name: "",
       age: 25,
     }
 
