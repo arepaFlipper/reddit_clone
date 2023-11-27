@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import { db } from '@/lib/db'
 import { notFound } from 'next/navigation';
 import { format } from 'date-fns'
+import SubscribeLeaveToggle from '@/components/SubscribeLeaveToggle';
 
 type TLayout = {
   children: ReactNode,
@@ -77,10 +78,15 @@ const layout = async ({ children, params }: TLayout) => {
                   <div className="text-gary-900">{memberCount}</div>
                 </dd>
               </div>
-              {(subreddit.creatorId === session?.user?.id) && (
+              {(subreddit.creatorId === session?.user?.id) ? (
                 <div className="flex justify-between gap-x-4 py-3">
                   <p className="text-gray-500">You created this community</p>
                 </div>
+              ) : (
+                <div className="flex justify-between gap-x-4 py-3"></div>
+              )}
+              {subreddit.creatorId !== session?.user?.id && (
+                <SubscribeLeaveToggle />
               )}
             </dl>
           </div>
