@@ -4,12 +4,15 @@ import { Input } from '@/components/ui/Input'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useMutation } from '@tanstack/react-query'
-import axios from "axios"
+import axios, { AxiosError } from "axios"
+import { toast } from '@/hooks/use-toast'
 import { CreateSubredditPayload } from '@/lib/validators/subreddit'
+import { useCustomToast } from '@/hooks/use-custom-toast'
 
 const Page = () => {
   const [input, setInput] = useState<string>('');
   const router = useRouter()
+  const { loginToast } = useCustomToast()
 
   const cancel_handler = () => {
     router.back();
@@ -20,11 +23,39 @@ const Page = () => {
       name: input,
     }
 
-    const { data } = await axios.post('/api/subreddit', payload)
+    const { data } = await axios.post('/api/subreddit', payload);
     return data as string
   }
 
-  const { mutate: createCommunity, isLoading } = useMutation({ mutationFn, onSuccess: () => router.push('/r/create') })
+  const onError = (err: Error) => {
+    if (err instanceof AxiosError) {
+      if (err.response?.status === 409) {
+        return toast({
+          title: 'Subredditest already exists',
+          description: 'Please choose a different subredditest name',
+          variant: 'destructive',
+        })
+      }
+
+      if (err.response?.status === 422) {
+        return toast({
+          title: 'Invalid subreddites name',
+          description: 'Please choose a name between 3 and 21 characters',
+          variant: 'destructive',
+        })
+      }
+
+      if (err.response?.status === 401) {
+        return loginToast()
+      }
+    }
+  }
+
+  const onSuccess = () => {
+    router.push('/r/create');
+  }
+
+  const { mutate: createCommunity, isLoading } = useMutation({ mutationFn, onSuccess, onError })
 
   return (
     <div className="container flex items-center h-full max-w-3xl mx-auto">
@@ -48,7 +79,7 @@ const Page = () => {
 
         <div className="flex justify-end gap-4">
           <Button variant="subtle" onClick={cancel_handler} disabled={input.length === 0} >Cancel</Button>
-          <Button variant="subtle" onClick={() => createCommunity()}>Create Community</Button>
+          <Button disabled={input.length === 0} isLoading={isLoading} onClick={() => createCommunity()}>Create Community</Button>
         </div>
       </div>
     </div >
