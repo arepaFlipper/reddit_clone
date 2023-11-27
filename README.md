@@ -131,6 +131,9 @@ so for example, if the user click the Vault button on a comment and they have to
 you could just send them to the auth modal, which is not invasive compared to actually navigate the 
 user to the proper page (like `/sign-in`).
 
+### (2:16:46) Create the route '/r/'
+The folders created into the `src/app/` folder are going to be considered as routes.
+
 ## Database Diagram
 ![Database Diagram](./DB_model.png)
 
