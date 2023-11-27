@@ -61,7 +61,7 @@ Table Subreddit {
 Table Subscription {
   user User [not null]
   userId String [not null]
-  surbreddit Subreddit [not null]
+  subreddit Subreddit [not null]
   subredditId String [not null]
 
   indexes {
