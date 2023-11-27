@@ -134,6 +134,16 @@ user to the proper page (like `/sign-in`).
 ### (2:16:46) Create the route '/r/'
 The folders created into the `src/app/` folder are going to be considered as routes.
 
+### (2:29:46) Use `zod` library
+The `zod` library is used to validate the data that is going to be sent to the server.
+In this case we are going to validate the data to create the proper community.
+
+![Zod cleaning data](./Zod_explanation.png)
+
+In case we are not passing data according to the schema, the `zod` library will throw an error:
+
+![Zod throw error](./Zod_control.png)
+
 ## Database Diagram
 ![Database Diagram](./DB_model.png)
 
