@@ -138,6 +138,11 @@ The folders created into the `src/app/` folder are going to be considered as rou
 The `zod` library is used to validate the data that is going to be sent to the server.
 In this case we are going to validate the data to create the proper community.
 
+![Zod cleaning data](./Zod_explanation.png)
+
+In case we are not passing data according to the schema, the `zod` library will throw an error:
+
+![Zod throw error](./Zod_control.png)
 
 ### (2:59:00) \[slug]
 The square brackets in the folder defines a dynamic route which its value is taken from the URL.
@@ -150,15 +155,6 @@ The double exclamation mark is used in JavaScript to turn a value into a boolean
 ### (3:36:38) "use client"
 The `use client` is used to make sure that the code is only executed on the client side. 
 And it allows us to use client API's
-
-![Zod cleaning data](./Zod_explanation.png)
-
-In case we are not passing data according to the schema, the `zod` library will throw an error:
-
-![Zod throw error](./Zod_control.png)
-
-## Database Diagram
-![Database Diagram](./DB_model.png)
 
 ### Acknowledgements
 Special thanks to Joshua Neske (@joshtriedcoding) for making the original project tutorial.
