@@ -1,5 +1,7 @@
 import { db } from '@/lib/db'
 import { notFound } from 'next/navigation'
+import { Button } from '@/components/ui/Button'
+import Editor from '@/components/Editor'
 
 type Props = {
   params: {
@@ -26,6 +28,13 @@ const page = async ({ params }: Props) => {
           </h3>
           <p className="ml-2 mt-1 truncate text-sm text-gray-500">in r/{params.slug}</p>
         </div>
+      </div>
+
+      {/* form */}
+      <Editor />
+
+      <div className="w-full flex justify-end">
+        <Button type='submit' className="w-full" form='subreddit-post-form'>Post</Button>
       </div>
     </div>
   )
