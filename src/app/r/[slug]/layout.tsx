@@ -86,7 +86,7 @@ const layout = async ({ children, params }: TLayout) => {
                 <div className="flex justify-between gap-x-4 py-3"></div>
               )}
               {subreddit.creatorId !== session?.user?.id && (
-                <SubscribeLeaveToggle />
+                <SubscribeLeaveToggle subredditId={subreddit.id} subredditName={subreddit.name} isSubscribed={isSubscribed} />
               )}
             </dl>
           </div>
