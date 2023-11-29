@@ -156,5 +156,11 @@ The double exclamation mark is used in JavaScript to turn a value into a boolean
 The `use client` is used to make sure that the code is only executed on the client side. 
 And it allows us to use client API's
 
+### (4:38:40) Upload images
+I made the code refactor based on this doc:
+![Uploadthing sample](https://docs.uploadthing.com/api-reference/react#uploadfiles)
+
+![EditorJS providing custom uploading methods](https://github.com/editor-js/image#providing-custom-uploading-methods)
+
 ### Acknowledgements
 Special thanks to Joshua Neske (@joshtriedcoding) for making the original project tutorial.

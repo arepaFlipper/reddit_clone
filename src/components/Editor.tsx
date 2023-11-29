@@ -58,14 +58,27 @@ const Editor = ({ subredditId }: TEdit) => {
               uploader: {
                 async uploadByFile(file: File) {
                   // upload to uploadthing
-                  const [res] = await uploadFiles([file], 'imageUploader')
+                  try {
 
-                  return {
-                    success: 1,
-                    file: {
-                      url: (res as any).fileUrl,
-                    },
+                    const res = await uploadFiles('imageUploader', { files: [file] })
+                    const response: any = res[0]
+                    return {
+                      success: 1,
+                      file: {
+                        url: response.url,
+                      },
+                    }
+                  } catch (error) {
+                    console.log(`🕣%cEditor.tsx:73 - error`, 'font-weight:bold; background:#ae5100;color:#fff;');
+                    console.log(error);
+                    return {
+                      success: 0,
+                      file: {
+                        url: "",
+                      },
+                    }
                   }
+
                 },
               },
             },
