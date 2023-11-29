@@ -4,17 +4,26 @@ import { useForm } from 'react-hook-form';
 import TextAreaAutosize from 'react-textarea-autosize';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PostCreationRequest, PostValidator } from '@/lib/validators/post';
-import { useCallback, useRef } from 'react'
+import { useCallback, useRef, useState, useEffect } from 'react'
 import type EditorJS from '@editorjs/editorjs'
+import { uploadFiles } from "@/lib/uploadthing";
 
 type TEdit = {
   subredditId: string;
 }
 
 const Editor = ({ subredditId }: TEdit) => {
-  const { register, handleSubmit, formState } = useForm<PostCreationRequest>({ resolver: zodResolver(PostValidator), defaultValues: { subredditId, title: '', content: null } })
+  const { register, handleSubmit, formState } = useForm<PostCreationRequest>({ resolver: zodResolver(PostValidator), defaultValues: { subredditId, title: '', content: null } });
 
-  const ref = useRef<EditorJS>()
+  const ref = useRef<EditorJS>();
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsMounted(true);
+    };
+  }, []);
+
   const initializeEditor = useCallback(async () => {
     const EditorJS = (await import('@editorjs/editorjs')).default
     const Header = (await import('@editorjs/header')).default
@@ -48,20 +57,47 @@ const Editor = ({ subredditId }: TEdit) => {
             config: {
               uploader: {
                 async uploadByFile(file: File) {
-                }
-              }
-            }
-          }
+                  const [res] = await uploadFiles([file], 'imageUploader');
+                  return {
+                    success: 1,
+                    file: {
+                      url: res.fileUrl,
+                    },
+                  };
+                },
+              },
+            },
+          },
+          list: List,
+          code: Code,
+          inlineCode: InlineCode,
+          table: Table,
+          embed: Embed,
         },
       });
     }
-  }, [])
+  }, []);
 
+  useEffect(() => {
+    const init = async () => {
+      await initializeEditor();
+
+      setTimeout(() => {
+        // set focus the title
+      })
+    }
+
+    if (isMounted) {
+      init();
+      return () => { };
+    }
+  }, [isMounted, initializeEditor])
   return (
     <div className="w-full p-4 bg-zinc-50 rounded-lg border border-zinc-200">
       <form id='subreddit-post-form' className="w-fit" onSubmit={() => { }}>
         <div className="prose prose-stone dark:prose-invert">
           <TextAreaAutosize placeholder="Title" className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none" />
+          <div id='editor' className="min-h-[500px]" />
         </div>
       </form>
     </div>
