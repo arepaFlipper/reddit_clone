@@ -38,7 +38,7 @@ const Editor = ({ subredditId }: TEdit) => {
     if (!ref.current) {
       const editor = new EditorJS({
         holder: 'editor',
-        onReady: () => {
+        onReady() {
           ref.current = editor
         },
         placeholder: 'Type here to write your post...',
@@ -57,13 +57,15 @@ const Editor = ({ subredditId }: TEdit) => {
             config: {
               uploader: {
                 async uploadByFile(file: File) {
-                  const [res] = await uploadFiles([file], 'imageUploader');
+                  // upload to uploadthing
+                  const [res] = await uploadFiles([file], 'imageUploader')
+
                   return {
                     success: 1,
                     file: {
-                      url: res.fileUrl,
+                      url: (res as any).fileUrl,
                     },
-                  };
+                  }
                 },
               },
             },
@@ -74,7 +76,7 @@ const Editor = ({ subredditId }: TEdit) => {
           table: Table,
           embed: Embed,
         },
-      });
+      })
     }
   }, []);
 
