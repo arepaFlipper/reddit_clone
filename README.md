@@ -162,5 +162,28 @@ I made the code refactor based on this doc:
 
 ![EditorJS providing custom uploading methods](https://github.com/editor-js/image#providing-custom-uploading-methods)
 
+### (4:41:00) Focus the `<TextAreaAutosize/>` component
+The component takes the `ref` and so it can
+
+```tsx
+  const _titleRef = useRef<HTMLTextAreaElement>(null);
+  ...
+          <TextAreaAutosize ref={_titleRef} {...register('title')} />
+  ...
+```
+The code above will throw the warning bellow:
+```
+Diagnostics:
+1. 'ref' is specified more than once, so this usage will be overwritten. [2783]
+```
+Which is problematic because the `form` already takes the `ref` and so it can 
+handle like automatic focus. The `<TextAreaAutosize/>` component does all this `ref` for
+us under the hood. So, in order to fix this case is share the `ref` with **react hook form**.
+
+### (5:02:52) Prisma studio
+To run the Prisma studio, just run `npx prisma studio`, select `Post` model, there 
+should be the created posts.
+
+
 ### Acknowledgements
 Special thanks to Joshua Neske (@joshtriedcoding) for making the original project tutorial.
