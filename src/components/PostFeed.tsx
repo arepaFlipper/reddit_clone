@@ -33,6 +33,7 @@ const PostFeed = ({ initialPosts, subredditName }: TPostFeed) => {
   const { data: session } = useSession();
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(['infinite-query'], infinite_query, { getNextPageParam, initialData });
   const posts = data?.pages.flatMap((page: any) => page) ?? initialPosts;
+
   return (
     <ul className="flex flex-col col-span-2 space-y-6">
       {posts.map((post, index) => {
@@ -46,12 +47,12 @@ const PostFeed = ({ initialPosts, subredditName }: TPostFeed) => {
         if (index === posts.length - 1) {
           return (
             <li key={post.id} ref={ref}>
-              <Post post={post} subredditName={post.subreddit.name} />
+              <Post post={post} subredditName={post.subreddit.name} commentAmt={post.comments.length} />
             </li>
           )
         } else {
           return (
-            <Post post={post} subredditName={post.subreddit.name} />
+            <Post post={post} subredditName={post.subreddit.name} commentAmt={post.comments.length} />
           )
         }
 
