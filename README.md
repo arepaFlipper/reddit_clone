@@ -184,6 +184,16 @@ us under the hood. So, in order to fix this case is share the `ref` with **react
 To run the Prisma studio, just run `npx prisma studio`, select `Post` model, there 
 should be the created posts.
 
+### (5:31:30) Extended Types
+```tsx
+  type TPost = {
+    subredditName: string;
+    post: Post & {
+      author: User;
+      votes: Vote[];
+    }
+  }
+```
 
 ### Acknowledgements
 Special thanks to Joshua Neske (@joshtriedcoding) for making the original project tutorial.

@@ -46,11 +46,13 @@ const PostFeed = ({ initialPosts, subredditName }: TPostFeed) => {
         if (index === posts.length - 1) {
           return (
             <li key={post.id} ref={ref}>
-              <Post />
+              <Post post={post} subredditName={post.subreddit.name} />
             </li>
           )
         } else {
-          return <Post />
+          return (
+            <Post post={post} subredditName={post.subreddit.name} />
+          )
         }
 
       })}
