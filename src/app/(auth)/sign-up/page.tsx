@@ -2,7 +2,7 @@ import { buttonVariants } from '@/components/ui/Button'
 import { ChevronLeft } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import SignIn from '@/components/SignIn'
+import SignUp from '@/components/SignUp'
 
 const page = () => {
   return (
