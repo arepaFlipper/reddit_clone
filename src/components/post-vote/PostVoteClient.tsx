@@ -1,4 +1,7 @@
 "use client"
+
+import axios from "axios"
+import { PostVoteRequest } from "@/lib/validators/vote";
 import { useState, useEffect } from "react";
 import { VoteType } from "@prisma/client";
 import { useCustomToast } from "@/hooks/use-custom-toast";
@@ -6,6 +9,7 @@ import { usePrevious } from "@mantine/hooks";
 import { Button } from "@/components/ui/Button";
 import { ArrowBigUp, ArrowBigDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useMutation } from "@tanstack/react-query";
 
 type Props = {
   postId: string;
@@ -23,6 +27,18 @@ const PostVoteClient = ({ postId, initialVotesAmt, initialVote }: Props) => {
   useEffect(() => {
     setCurrentVote(initialVote);
   }, [initialVote]);
+
+  const mutationFn = async (voteType: VoteType) => {
+    const payload: PostVoteRequest = {
+      voteType,
+      postId,
+    }
+    await axios.patch('/api/subreddit/post/vote', payload);
+  }
+
+  const { } = useMutation({
+    mutationFn,
+  })
   return (
     <div className="flex sm:flex-col gap-4 sm:gap-0 pr-6 sm:w-20 pb-4 sm:pb-0">
       <Button size="sm" variant='ghost' aria-label='upvote'>
