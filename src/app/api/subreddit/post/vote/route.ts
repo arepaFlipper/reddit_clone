@@ -9,7 +9,7 @@ const CACHE_AFTER_UPVOTES = 1
 
 const recount_votes = async ({ post, voteType, postId }: any): Promise<{ votesAmt: number, cachePayload?: CachedPost }> => {
 
-  // Recount the votes
+  // NOTE: Recount the votes
   const votesAmt = post.votes.reduce((acc, vote) => {
     if (vote.type === 'UP') return acc + 1
     if (vote.type === 'DOWN') return acc - 1
@@ -26,7 +26,7 @@ const recount_votes = async ({ post, voteType, postId }: any): Promise<{ votesAm
       createdAt: post.createdAt,
     }
 
-    await redis.hset(`post:${postId}`, cachePayload) // Store the post data as a hash
+    await redis.hset(`post:${postId}`, cachePayload) // NOTE: Store the post data as a hash
   }
 
   return { votesAmt };
@@ -45,7 +45,7 @@ export async function PATCH(req: Request) {
       return new Response('🖕Unauthorized', { status: 401 })
     }
 
-    // check if user has already voted on this post
+    // NOTE: check if user has already voted on this post
     const existingVote = await db.vote.findFirst({
       where: {
         userId: session.user.id,
@@ -84,7 +84,7 @@ export async function PATCH(req: Request) {
         return new Response('💥 Post unvoted successfully ', { status: 200 })
       }
 
-      // if vote type is different, update the vote
+      // NOTE: if vote type is different, update the vote
       await db.vote.update({
         where: {
           userId_postId: {
@@ -102,7 +102,7 @@ export async function PATCH(req: Request) {
       return new Response('🥳 Post voted successfully ', { status: 200 })
     }
 
-    // if no existing vote, create a new vote
+    // NOTE: if no existing vote, create a new vote
     await db.vote.create({
       data: {
         type: voteType,
