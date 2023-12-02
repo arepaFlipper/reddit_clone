@@ -47,12 +47,12 @@ const PostFeed = ({ initialPosts, subredditName }: TPostFeed) => {
         if (index === posts.length - 1) {
           return (
             <li key={post.id} ref={ref}>
-              <Post post={post} subredditName={post.subreddit.name} commentAmt={post.comments.length} />
+              <Post post={post} subredditName={post.subreddit.name} commentAmt={post.comments.length} currentVote={currentVote} votesAmt={votesAmt} />
             </li>
           )
         } else {
           return (
-            <Post post={post} subredditName={post.subreddit.name} commentAmt={post.comments.length} />
+            <Post post={post} subredditName={post.subreddit.name} commentAmt={post.comments.length} currentVote={currentVote} votesAmt={votesAmt} />
           )
         }
 
