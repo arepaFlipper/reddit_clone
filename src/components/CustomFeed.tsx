@@ -2,10 +2,13 @@ import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { db } from "@/lib/db";
 import PostFeed from "@/components/PostFeed";
 import { getAuthSession } from "@/lib/auth";
+import { Post } from "@prisma/client";
 
-type Props = {}
+type TCustomFeed = {
+  initialPosts: Post[]
+}
 
-const CustomFeed = async (props: Props) => {
+const CustomFeed = async (props: TCustomFeed) => {
   const session = await getAuthSession();
 
   const followedCommunities = await db.subscription.findMany({
