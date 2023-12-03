@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { ExtendedPost } from "@/types/db";
 import { useIntersection } from "@mantine/hooks";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
@@ -33,6 +33,12 @@ const PostFeed = ({ initialPosts, subredditName }: TPostFeed) => {
   const { data: session } = useSession();
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(['infinite-query'], infinite_query, { getNextPageParam, initialData });
   const posts = data?.pages.flatMap((page: any) => page) ?? initialPosts;
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      fetchNextPage();
+    }
+  }, [entry, fetchNextPage]);
 
   return (
     <ul className="flex flex-col col-span-2 space-y-6">
