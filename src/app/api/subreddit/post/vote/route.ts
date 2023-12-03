@@ -10,7 +10,7 @@ const CACHE_AFTER_UPVOTES = 1
 const recount_votes = async ({ post, voteType, postId }: any): Promise<{ votesAmt: number, cachePayload?: CachedPost }> => {
 
   // NOTE: Recount the votes
-  const votesAmt = post.votes.reduce((acc, vote) => {
+  const votesAmt = post.votes.reduce((acc: number, vote: any) => {
     if (vote.type === 'UP') return acc + 1
     if (vote.type === 'DOWN') return acc - 1
     return acc

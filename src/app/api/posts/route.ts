@@ -60,8 +60,8 @@ export async function GET(req: Request) {
       where: whereClause,
     });
 
-    return new Response(JSON.stringify(posts));
+    return new Response(JSON.stringify(posts), { status: 200 });
   } catch (error) {
-    return new Response('Could not fetch posts', { status: 500 });
+    return new Response('☠️  Could not fetch posts', { status: 500 });
   }
 }
