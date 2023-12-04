@@ -8,6 +8,7 @@ import { buttonVariants } from '@/components/ui/Button';
 import { ArrowBigUp, Loader2, ArrowBigDown } from "lucide-react";
 import PostVoteServer from "@/components/post-vote/PostVoteServer";
 import { formatTimeToNow } from "@/lib/utils";
+import EditorOutput from "@/components/EditorOutput";
 
 interface IPage {
   params: {
@@ -63,6 +64,8 @@ const page = async ({ params }: IPage) => {
           <h1 className="text-xl font-semibold py-2 leading-6 text-gray-900">
             {post?.title ?? cachedPost.title}
           </h1>
+
+          <EditorOutput content={post?.content ?? cachedPost.content} />
         </div>
       </div>
     </div>
