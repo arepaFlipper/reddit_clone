@@ -152,7 +152,7 @@ eg. `http://localhost:3000/r/neovim` for this case and considering that the fold
 ### (3:25:36) Double exclamation mark
 The double exclamation mark is used in JavaScript to turn a value into a boolean.
 
-### (3:36:38)(4:07:55)(5:54:00) "use client"
+### (3:36:38)(4:07:55)(5:54:00)(7:34:30) "use client"
 The `use client` is used to make sure that the code is only executed on the client side. 
 And it allows us to use client API's
 
@@ -194,6 +194,8 @@ should be the created posts.
     }
   }
 ```
+
+### (7:34:30) 
 
 ### Acknowledgements
 Special thanks to Joshua Neske (@joshtriedcoding) for making the original project tutorial.

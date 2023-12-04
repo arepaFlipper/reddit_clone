@@ -39,7 +39,6 @@ const renderers = {
 
 const EditorOutput = ({ content }: TEditorOutput) => {
   return (
-    // @ts-expect-error
     <Output data={content} style={style} className='text-sm' renderers={renderers} />
   )
 }

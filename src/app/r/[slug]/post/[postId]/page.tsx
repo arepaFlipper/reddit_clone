@@ -9,6 +9,7 @@ import { ArrowBigUp, Loader2, ArrowBigDown } from "lucide-react";
 import PostVoteServer from "@/components/post-vote/PostVoteServer";
 import { formatTimeToNow } from "@/lib/utils";
 import EditorOutput from "@/components/EditorOutput";
+import CommentsSection from "@/components/CommentsSection";
 
 interface IPage {
   params: {
@@ -66,9 +67,14 @@ const page = async ({ params }: IPage) => {
           </h1>
 
           <EditorOutput content={post?.content ?? cachedPost.content} />
+
+          <Suspense fallback={<Loader2 className="h-5 w-5 animate-spin text-zinc-500" />} >
+            {/* @ts-expect-error server component*/}
+            <CommentsSection postId={post?.id ?? cachedPost.id} />
+          </Suspense>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 
