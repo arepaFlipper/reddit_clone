@@ -4,14 +4,21 @@ import { useRef } from "react";
 import type { Comment, User, CommentVote } from "@prisma/client";
 import UserAvatar from "@/components/UserAvatar";
 import { formatTimeToNow } from "@/lib/utils";
+import CommentVotes from "@/components/CommentVotes";
+import { Button } from "@/components/ui/Button";
+import { MessageSquare } from "lucide-react";
 
 type ExtendedComment = (Comment & { votes: CommentVote[]; author: User; });
 
 type TPostComment = {
   comment: ExtendedComment;
+  votesAmt: number;
+  currentVote: CommentVote | undefined;
+  postId: string;
+
 }
 
-const PostComment = ({ comment }: TPostComment) => {
+const PostComment = ({ comment, currentVote, votesAmt }: TPostComment) => {
   const commentRef = useRef<HTMLDivElement>(null);
   return (
     <div ref={commentRef} className="flex flex-col">
@@ -24,6 +31,13 @@ const PostComment = ({ comment }: TPostComment) => {
       </div>
       <p className="text-sm text-zinc-900 mt-2">{comment.text}</p>
 
+      <div className="flex gap-2 items-center">
+        <CommentVotes commentId={comment.id} initialVoteAmt={votesAmt} initialVote={currentVote} />
+        <Button variant="ghost" size="xs">
+          <MessageSquare className="h-4 w-4 mr-1.5" />
+          Reply
+        </Button>
+      </div>
 
     </div>
   )
