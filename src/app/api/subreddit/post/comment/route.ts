@@ -1,7 +1,7 @@
 import { getAuthSession } from "@/lib/auth";
-import { db } from "@/lib/db";
 import { z } from "zod";
 import { CommentValidator } from "@/lib/validators/comment";
+
 
 export const PATCH = async (req: Request) => {
   try {
