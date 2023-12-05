@@ -55,7 +55,7 @@ const PostComment = ({ comment, currentVote, votesAmt, postId }: TPostComment) =
         return loginToast();
       }
     }
-    return toast({ title: '😓 There was a problem', description: 'Something went wrong, please try again later', variant: 'destructive' });
+    return toast({ title: '😓 There was a problem replying this comment', description: err.message, variant: 'destructive' });
   }
 
   const { mutate, isLoading, } = useMutation({ mutationFn, onSuccess, onError });
@@ -73,8 +73,9 @@ const PostComment = ({ comment, currentVote, votesAmt, postId }: TPostComment) =
 
   const on_click_reply = () => {
     if (!input) {
-      return mutate({ postId, text: input, replyToId: comment.replyToId ?? comment.id })
+      return
     }
+    mutate({ postId, text: input, replyToId: comment.replyToId ?? comment.id })
     setIsReplying(true);
   }
 
@@ -104,7 +105,7 @@ const PostComment = ({ comment, currentVote, votesAmt, postId }: TPostComment) =
                 <Textarea id="comment" value={input} onChange={on_change} rows={1} placeholder="What are your thoughts?" />
                 <div className="mt-2 flex justify-end gap-2">
                   <Button tabIndex={-1} variant="subtle" onClick={() => setIsReplying(false)}>Cancel</Button>
-                  <Button isLoading={isLoading} disabled={input.length === 0} onClick={on_click_reply}>Post</Button>
+                  <Button isLoading={isLoading} disabled={input.length === 0} onClick={on_click_reply}>Reply</Button>
                 </div>
               </div>
             </div>

@@ -44,6 +44,25 @@ const CommentsSection = async ({ postId }: ICommentsSection) => {
               <div className="mb-2">
                 <PostComment comment={topLevelComment} postId={postId} currentVote={topLevelCommentVote} votesAmt={topLevelCommentVotesAmt} />
               </div>
+
+              {/* NOTE: render replies:
+                  sort the replies by the most votes, and the most interesting replies
+                  (likely the most contraversial, as well)
+              */}
+
+              {topLevelComment.replies.sort((a, b) => b.votes.length - a.votes.length).map((reply) => {
+                const replyVotesAmt = reply.votes.reduce((acc, vote) => {
+                  if (vote.type === "UP") return acc + 1;
+                  if (vote.type === "DOWN") return acc - 1;
+                  return acc;
+                }, 0);
+                const replyVote = reply.votes.find((vote) => vote.userId === session?.user?.id);
+                return (
+                  <div key={reply.id} className="ml-4">
+                    <PostComment comment={reply} postId={postId} currentVote={replyVote} votesAmt={replyVotesAmt} />
+                  </div>
+                )
+              })}
             </div>
           )
         })}
