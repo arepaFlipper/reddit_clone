@@ -30,7 +30,7 @@ const CommentVotes = ({ commentId, initialVoteAmt, initialVote }: TCommentVote) 
       voteType,
       commentId,
     }
-    await axios.patch('/api/subreddit/post/comment/vote', payload);
+    await axios.patch('/api/subreddit/post/comment/vote/', payload);
   }
 
   const onError = (err: Error, voteType: VoteType) => {

@@ -40,12 +40,13 @@ const PostComment = ({ comment, currentVote, votesAmt, postId }: TPostComment) =
 
   const mutationFn = async ({ postId, text, replyToId }: CommentRequest) => {
     const payload: CommentRequest = { postId, text, replyToId }
-    const { data } = await axios.patch(`/api/subreddit/post/comment`, payload);
-    return data;
+    const response = await axios.patch(`/api/subreddit/post/comment`, payload);
+    return response.data;
   }
 
   const onSuccess = () => {
     router.refresh();
+    setIsReplying(false);
     setInput("");
   }
 
