@@ -12,7 +12,6 @@ export const PATCH = async (req: Request) => {
       return new Response("Unauthorized", { status: 401 });
     }
 
-    await db.comment.create({ data: { text, postId, authorId: session.user.id, replyToId } });
     return new Response("✅ Comment created successfully", { status: 200 });
 
   } catch (error) {

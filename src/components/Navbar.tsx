@@ -2,9 +2,8 @@ import Link from 'next/link';
 import { Icons } from "./Icons"
 import { buttonVariants } from "./ui/Button"
 import { getAuthSession } from "@/lib/auth"
-import UserAccountNav from "./UserAccountNav"
-
-type TNavbar = {}
+import UserAccountNav from "@/components/UserAccountNav"
+import SearchBar from "@/components/SearchBar";
 
 const Navbar = async () => {
   const session = await getAuthSession();
@@ -17,7 +16,8 @@ const Navbar = async () => {
           <p className="hidden text-zinc-700 text-sm font-medium md:block" >Reddit Clone</p>
         </Link>
 
-        {/* Search bar */}
+        <SearchBar />
+
         {(session?.user) ? (
           <UserAccountNav user={session.user} />
         ) : (

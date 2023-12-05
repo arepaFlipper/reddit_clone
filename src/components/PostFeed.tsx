@@ -58,7 +58,7 @@ const PostFeed = ({ initialPosts, subredditName }: TPostFeed) => {
           )
         } else {
           return (
-            <Post post={post} subredditName={post.subreddit.name} commentAmt={post.comments.length} currentVote={currentVote} votesAmt={votesAmt} />
+            <Post key={post.id} post={post} subredditName={post.subreddit.name} commentAmt={post.comments.length} currentVote={currentVote} votesAmt={votesAmt} />
           )
         }
 
