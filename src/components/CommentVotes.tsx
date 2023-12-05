@@ -30,7 +30,7 @@ const CommentVotes = ({ commentId, initialVoteAmt, initialVote }: TCommentVote) 
       voteType,
       commentId,
     }
-    await axios.patch('/api/subreddit/post/comment/vote/', payload);
+    const res = await axios.patch('/api/subreddit/post/comment/vote/', payload);
   }
 
   const onError = (err: Error, voteType: VoteType) => {
@@ -50,7 +50,7 @@ const CommentVotes = ({ commentId, initialVoteAmt, initialVote }: TCommentVote) 
       }
     }
 
-    return toast({ title: '😓 Something went wrong', description: 'Please try again later', variant: 'destructive' });
+    return toast({ title: '😓 Something went wrong while voting', description: 'Please try again later', variant: 'destructive' });
 
   }
 

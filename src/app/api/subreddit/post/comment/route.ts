@@ -13,7 +13,8 @@ export const PATCH = async (req: Request) => {
     }
 
     await db.comment.create({ data: { text, postId, authorId: session.user.id, replyToId } });
-    return new Reponse("✅ Comment created successfully", { status: 200 });
+    return new Response("✅ Comment created successfully", { status: 200 });
+
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response("Invalid request data passed", { status: 400 });

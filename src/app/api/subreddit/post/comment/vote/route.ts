@@ -6,7 +6,6 @@ import { z } from 'zod'
 export async function PATCH(req: Request) {
   try {
     const body = await req.json()
-
     const { commentId, voteType } = CommentVoteValidator.parse(body);
 
     const session = await getAuthSession()
