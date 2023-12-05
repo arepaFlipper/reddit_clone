@@ -100,7 +100,6 @@ const PostComment = ({ comment, currentVote, votesAmt, postId }: TPostComment) =
             <Label>Your comment</Label>
 
             <div className="grid w-full gap-1.5">
-              <Label htmlFor="comment">Comment</Label >
               <div className="mt-2">
                 <Textarea id="comment" value={input} onChange={on_change} rows={1} placeholder="What are your thoughts?" />
                 <div className="mt-2 flex justify-end gap-2">
