@@ -7,7 +7,10 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Label } from "@/components/ui/Label";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from "next/navigation";
+import axios, { AxiosError } from "axios";
+import { toast } from "@/hooks/use-toast";
 
 type TUserNameForm = {
   user: Pick<User, "id" | "username">;
@@ -15,9 +18,38 @@ type TUserNameForm = {
 
 const UserNameForm = ({ user }: TUserNameForm) => {
   const { handleSubmit, register, formState: { errors } } = useForm<UsernameRequest>({ resolver: zodResolver(UsernameValidator), defaultValues: { name: user?.username || "" } });
-  const { mutate, isLoading } = useMutation({});
+  const router = useRouter();
+  const mutationFn = async ({ name }: UsernameRequest) => {
+    const payload: UsernameRequest = { name };
+    const { data } = await axios.patch(`/api/username`, payload);
+    return data;
+  };
+
+  const onSuccess = () => {
+    toast({ description: "✅ Your username has been updated." });
+    router.refresh();
+  };
+
+  const onError = (err: Error) => {
+    if (err instanceof AxiosError) {
+      if (err.response?.status === 409) {
+        return toast({
+          title: "This username is already taken.",
+          description: "Please choose a different username.",
+          variant: "destructive",
+        });
+      };
+    };
+
+    return toast({
+      title: "There was an error.",
+      description: "Could not create subreddit.",
+      variant: "destructive",
+    });
+  };
+  const { mutate, isLoading } = useMutation({ mutationFn, onSuccess, onError });
   return (
-    <form onSubmit={handleSubmit(() => { })}>
+    <form onSubmit={handleSubmit((event: UsernameRequest) => { mutate(event) })}>
       <Card>
         <CardHeader>
           <CardTitle>Your username</CardTitle>
