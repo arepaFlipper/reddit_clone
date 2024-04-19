@@ -39,6 +39,7 @@ const renderers = {
 
 const EditorOutput = ({ content }: TEditorOutput) => {
   return (
+    // @ts-ignore
     <Output data={content} style={style} className='text-sm' renderers={renderers} />
   )
 }
